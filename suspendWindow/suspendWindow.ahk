@@ -41,9 +41,9 @@ ResumeProcess(pid) {
 }
 IsProcessSuspended(pid) {
 	For thread in ComObjGet("winmgmts:").ExecQuery("Select * from Win32_Thread WHERE ProcessHandle = " pid) {
-		If (thread.ThreadWaitReason != 5) {
-			Return False
+		If (thread.ThreadWaitReason == 5) {
+			Return True
 		}
 	}
-	Return True
+	Return False
 }
